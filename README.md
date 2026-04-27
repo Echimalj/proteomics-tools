@@ -85,4 +85,88 @@ This asks which proteins are differentially enriched by BSN pulldown between WT 
 ├── README.md
 └── .gitignore
 ```
+-------
+## 1. TMT IP interaction analysis
 
+General workflow for testing whether protein enrichment differs between two biological conditions after IP-vs-background correction.
+
+Example:
+
+```scripts/bsn_tmt_ip_analysis.R```
+
+Main steps:
+
+- Read FragPipe protein abundance table
+- Define sample metadata
+- Filter proteins with sufficient completeness
+- Fit limma model
+- Test interaction contrast
+- Calculate enrichment values
+- Classify candidate lost/gained interactors
+- Export results and plots
+- 
+## 2. Row-min imputed interactome workflow
+
+General workflow for exploratory interactome discovery using paired IP/background ratios.
+
+Example:
+
+```scripts/bsn_interactome_rowmin.R```
+
+Main steps:
+
+- Read protein abundance table
+- Apply row-min imputation
+- Compute paired enrichment ratios
+- Run one-sided enrichment tests
+- Correct p-values
+- Classify interactors as condition-enriched or shared
+  
+## 3. PTM analysis workflow
+
+General workflow for filtering and visualizing protein PTMs from FragPipe outputs.
+
+Example:
+
+```scripts/bsn_ptm_analysis.R```
+
+Main steps:
+
+- Read PSM or combined site-level PTM tables
+- Filter for target protein and confidence thresholds
+- Classify PTMs by condition
+- Export PTM tables
+- Plot PTM sites along protein sequence
+
+## Requirements
+R packages
+```
+install.packages(c(
+  "tidyverse",
+  "limma",
+  "ggrepel",
+  "forcats"
+))
+```
+
+Optional:
+```
+install.packages("hrbrthemes")
+```
+### External tools:
+ProteoWizard
+FragPipe
+MSFragger
+Philosopher
+IonQuant / TMT-Integrator
+
+Notes
+This repository focuses on downstream R-based analysis after FragPipe processing.
+BSN is used as an example dataset, but the functions are intended to be reusable across proteins, interactomes, and experimental designs.
+Row-min imputation is useful for exploratory prioritization but should be interpreted carefully.
+Interaction contrasts are preferred when comparing IP enrichment across genotypes or conditions.
+
+### Author
+
+Enrique Chimal
+PhD Candidate – Medical Neuroscience
